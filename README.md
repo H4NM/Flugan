@@ -1,2 +1,6 @@
 # Flugan
-News should be based on facts. Flugan identifies articles at https://omni.se that have a speculative title and transforms them to what they truly are - a smelly pile of s**t. Flugan also removes DOM objects that it confidently identifies as ads.
+[![Flugan Version](https://github.com/H4NM/Flugan/blob/main/version.svg)]
+
+Nyheter ska baseras på fakta. Flugan identifierar artiklar hos omni.se som har spekulativa titlar och förvandlar dem till vad de är - bajs. Flugan tar även bort DOM objekt som den självsäkert identifierar som reklam. 
+
+
