@@ -4,16 +4,18 @@
 // - Expert varnar: lorem ipsum
 // - Analytiker: Lorem ipsum ok ok 
 
-const shitListRegex = ["^Expert(?:[A-Öa-ö0-9\-\s]*):", 
-					   "^Analys(?:[A-Öa-ö0-9\-\s]*):",
-					   "^Analytiker(?:[A-Öa-ö0-9\-\s]*):", 
-					   "^Rykte(?:[A-Öa-ö0-9\-\s]*):", 
-					   "^Strateg(?:[A-Öa-ö0-9\-\s]*):", 
-					   "^Statsvetare(?:[A-Öa-ö0-9\-\s]*):", 
-					   "^(?:[A-Öa-ö0-9\-\s]*) oroad:",
-					   "^(?:[A-Öa-ö0-9\-\s]*) varning:",
-					   "^Ledare:", 
-					   "^Källor:"];
+const shitListRegex = ["^Expert(.*?):", 
+					   "^Analys(.*?):",
+					   "^Analytiker(.*?):", 
+					   "^Rykte(.*?):", 
+					   "^Varningen(.*?):",
+					   "^Strateg(.*?):", 
+					   "^Statsvetare(.*?):", 
+					   "^Ledare(.*?):", 
+					   "^Källor(.*?):",
+					   "^(.*?) oroa(r|d|de):",
+					   "^(.*?) varn(ing|ar):"];
+
 const shitEmoji = "💩";
 const flyEmoji = "🪰";
 const shitColor = "#9a580d";
@@ -53,11 +55,13 @@ const dynamicCleanup = () => {
 
 	waitForElm('.feed').then((feed) => {
 		feed.querySelectorAll("h2").forEach(header => {
-			if (isShit(header.innerHTML)){
+			if (isShit(header.innerHTML) && !(/\p{Extended_Pictographic}/u.test(header.innerHTML))){
 				const newTitle =  shitEmoji + header.innerHTML + flyEmoji;
 				header.innerHTML = newTitle;
 				header.style.color = shitColor;
 				shitTitles.add(header.innerHTML);
+			}else{
+				console.log("[-] "+header.innerHTML);
 			}
 		});
 
