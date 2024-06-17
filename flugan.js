@@ -1,23 +1,18 @@
+const shitListRegex = [
+    "^Expert(.*?):", 
+    "^Analys(.*?):",
+    "^Analytiker(.*?):", 
+    "^Rykte(.*?):", 
+    "^Varning(.*?):",
+    "^Strateg(.*?):", 
+    "^Statsvetare(.*?):", 
+    "^Ledare(.*?):", 
+    "^Källor(.*?):",
+    "^(.*?) oroa(r|d|de)( för.*)?:?",
+    "^(.*?) varn(ing|ar|ingar)( för.*)?:?"
+];
 
-// Not working: 
-// - Expert om ballongerna: "lorem ipsum"
-// - Expert varnar: lorem ipsum
-// - Analytiker: Lorem ipsum ok ok 
-
-const shitListRegex = ["^Expert(.*?):", 
-					   "^Analys(.*?):",
-					   "^Analytiker(.*?):", 
-					   "^Rykte(.*?):", 
-					   "^Varning(.*?):",
-					   "^Strateg(.*?):", 
-					   "^Statsvetare(.*?):", 
-					   "^Ledare(.*?):", 
-					   "^Källor(.*?):",
-					   "^(.*?) oroa(r|d|de):",
-					   "^(.*?) varn(ing|ar):"];
-
-const fluganWebAdress = "https://www.bbstratz.com/omega_alpha"
-const htmlRegex = "\<\/"
+const htmlRegex = "\<\/";
 const shitEmoji = "💩";
 const flyEmoji = "🪰";
 const shitColor = "#9a580d";
@@ -29,23 +24,6 @@ let shitTitles = new Set();
 
 const isShit = (title) => {
 	return shitListRegex.some(reg => title.match(reg));
-}
-
-function test(text, rating){
-	alert(text + " " + rating);
-}
-
-const sendRating = (text, rating) => {
-	console.log("SENDING RATING!");
-	var xhr = new XMLHttpRequest();
-	xhr.open("POST", fluganWebAdress, true);
-	xhr.setRequestHeader('Content-Type', 'application/json');
-	xhr.send(JSON.stringify({
-    	text: text,
-		rating: rating
-	}));
-	console.log("OMEGA"+xhr.response);
-	console.log("SENT RATING!");
 }
 
 // Bild från https://deepai.org/machine-learning-model/text2img
