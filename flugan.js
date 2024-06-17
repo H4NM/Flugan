@@ -16,8 +16,8 @@ const shitListRegex = ["^Expert(.*?):",
 					   "^(.*?) oroa(r|d|de):",
 					   "^(.*?) varn(ing|ar):"];
 
+const fluganWebAdress = "https://www.bbstratz.com/omega_alpha"
 const htmlRegex = "\<\/"
-
 const shitEmoji = "💩";
 const flyEmoji = "🪰";
 const shitColor = "#9a580d";
@@ -29,6 +29,23 @@ let shitTitles = new Set();
 
 const isShit = (title) => {
 	return shitListRegex.some(reg => title.match(reg));
+}
+
+function test(text, rating){
+	alert(text + " " + rating);
+}
+
+const sendRating = (text, rating) => {
+	console.log("SENDING RATING!");
+	var xhr = new XMLHttpRequest();
+	xhr.open("POST", fluganWebAdress, true);
+	xhr.setRequestHeader('Content-Type', 'application/json');
+	xhr.send(JSON.stringify({
+    	text: text,
+		rating: rating
+	}));
+	console.log("OMEGA"+xhr.response);
+	console.log("SENT RATING!");
 }
 
 // Bild från https://deepai.org/machine-learning-model/text2img
@@ -65,35 +82,12 @@ const dynamicCleanup = () => {
 
 			//Om titeln matchar mot skit regex och inte redan har en emoji i sig
 			if (isShit(header.innerHTML) && !(/\p{Extended_Pictographic}/u.test(header.innerHTML))){
-				const newTitle =  shitEmoji + header.innerHTML + flyEmoji;
+				const oldTitle = header.innerHTML
+				const newTitle =  shitEmoji + oldTitle + flyEmoji;
 				header.innerHTML = newTitle;
 				header.style.color = shitColor;
-
 				//Gör om titeln till vad det är
-				shitTitles.add(header.innerHTML);
-
-				//Lägger till rating Div
-				const ratingDiv = document.createElement("div");
-				ratingDiv.style.background = "red";
-				ratingDiv.innerHTML = shitEmoji;
-				ratingDiv.id = "ratingDiv";
-
-				//Lägger till tumme upp knapp
-				const thumbUpButton = document.createElement("button");
-				thumbUpButton.style.background = "green";
-				thumbUpButton.innerHTML = "Upp";
-
-				//Lägger till tumme ner knapp
-				const thumbDownButton = document.createElement("button");
-				thumbDownButton.style.background = "blue";
-				thumbDownButton.innerHTML = "Ner";
-
-				ratingDiv.append(thumbUpButton);
-				ratingDiv.append(thumbDownButton);
-
-				header.insertAdjacentElement('afterend', ratingDiv);
-
-				
+				shitTitles.add(oldTitle);
 				
 			}else{
 				console.log("[-] "+header.innerHTML);
