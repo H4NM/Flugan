@@ -8,6 +8,9 @@ const shitListRegex = [
     "^Statsvetare(.*?):", 
     "^Ledare(.*?):", 
     "^Källor(.*?):",
+	"^Beräkning(.*?):",
+	"^Branschtoppen(.*?):",
+	"^Ekonom(.*?):",
     "^(.*?) oroa(r|d|de)( för.*)?:?",
     "^(.*?) varn(ing|ar|ingar)( för.*)?:?"
 ];
